@@ -1,0 +1,2 @@
+start Start_Server_Line.bat
+start Start_Server_Model.bat

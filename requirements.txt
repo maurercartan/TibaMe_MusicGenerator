@@ -1,0 +1,8 @@
+line-bot-sdk
+flask
+tensorflow==1.8.0
+Keras==2.2.4
+configparser
+psycopg2
+requests_toolbelt
+beautifulsoup4

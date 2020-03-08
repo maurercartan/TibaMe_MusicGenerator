@@ -1,0 +1,13 @@
+[line_server]
+channel_access_token = "3czHjLGROa0Z+ovIV8X1pkJ98E7rFGKtqbYm79la6P+3UFD4xR7K4NcTkNvPT1GX6+XYE6AYgMM/3QAH56KnuPMnF/gPBt/SzQUvoL2bDP5l+DVi4RkDGOYFDLbqz07YyTtf25SgBQajSKTdbSqj/QdB04t89/1O/w1cDnyilFU=", 
+secret_key = "1ea545fc3bb1d926b48b506c30259235"
+server_url = "https://raw.githubusercontent.com/maurercartan/Music_Project/master"
+rich_menu_id_title = "./data/rich_menu/rich_menu_id"
+rich_menu_id_generator = "./data/rich_menu2/rich_menu_id"
+rich_menu_id_null = "./data/rich_menu3/rich_menu_id"
+
+[model_server]
+mid_total_num = 40
+model_path = "./models/LSTM_Test.h5"
+music_length_second = 10
+mid_dir = "./pre_generator_music"

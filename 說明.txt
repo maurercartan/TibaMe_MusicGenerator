@@ -1,0 +1,30 @@
+2020.02.09
+    1.實現(Line Server)與(音樂生成模型)的整合,
+      收到使用者訊息後,載入模型並生成音樂後,立即上傳給使用者,
+      缺點是,載入模型的時間較為緩慢
+    
+2020.02.12
+    1.實現將(音樂生成模型)獨立為單獨的Server
+    2.利用(timidity)來實現(mid to m4a)
+    3.使用(config檔)來動態配置部分參數
+    4.利用爬蟲技術,自動更新Line的網址(自動上傳ngrok網址)
+    5.問題:
+        -目前發現iphone無法上的音樂無法正常播放
+
+2020.02.13
+    1.解決iphone無法播放問題,將(m4a檔)改為(mp3檔)
+        - (mid to wav) by (timidity軟體)
+        - (wav to mp3) by (pydub模組)
+            
+2020.02.16
+    1. 實現LineBot界面更新
+            
+2020.02.17
+    1.建立Postgresql資料庫(file_info,monitor_info,user_info)
+    2.藉由爬蟲技術將mp3檔案上傳至<https://sendit.cloud/>,並回傳mp3網址(可暫存7天)
+    3.由於Postgresql資料庫的資料最多只能記錄64個字節(mp3網址為長網址),因此藉由爬蟲技術轉為(短網址)
+
+2020.02.18
+    1.實現程式上傳至heroku,並可支援兩個Server(Line Server)與(Model Server)同時運作
+    2.解決轉檔必須要(音樂軟體)的問題,方法是利用爬蟲技術進行線上轉檔<https://solmire.com/midi-to-mp3>
+    3.解決(midi轉mp3)後連結無效問題,因為上傳與生成需要等待時間所造成

@@ -1,0 +1,71 @@
+{
+  "size": {
+    "width": 2500,
+    "height": 1686
+  },
+  "selected": true,
+  "name": "音樂生成",
+  "chatBarText": "查看更多資訊",
+  "areas": [
+    {
+      "bounds": {
+        "x": 193,
+        "y": 171,
+        "width": 458,
+        "height": 625
+      },
+      "action": {
+        "type": "message",
+        "text": "#UNISON"
+      }
+    },
+    {
+      "bounds": {
+        "x": 565,
+        "y": 946,
+        "width": 578,
+        "height": 565
+      },
+      "action": {
+        "type": "message",
+        "text": "#SUPERMARIO64"
+      }
+    },
+    {
+      "bounds": {
+        "x": 916,
+        "y": 81,
+        "width": 566,
+        "height": 527
+      },
+      "action": {
+        "type": "message",
+        "text": "#REALITY"
+      }
+    },
+    {
+      "bounds": {
+        "x": 1640,
+        "y": 393,
+        "width": 818,
+        "height": 600
+      },
+      "action": {
+        "type": "message",
+        "text": "#FF7"
+      }
+    },
+    {
+      "bounds": {
+        "x": 2051,
+        "y": 1246,
+        "width": 436,
+        "height": 440
+      },
+      "action": {
+        "type": "message",
+        "text": "#上一頁"
+      }
+    }
+  ]
+}

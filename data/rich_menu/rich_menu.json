@@ -1,0 +1,47 @@
+{
+  "size": {
+    "width": 2500,
+    "height": 1686
+  },
+  "selected": true,
+  "name": "首頁",
+  "chatBarText": "查看更多資訊",
+  "areas": [
+    {
+      "bounds": {
+        "x": 4,
+        "y": 449,
+        "width": 835,
+        "height": 548
+      },
+      "action": {
+        "type": "message",
+        "text": "#音樂生成"
+      }
+    },
+    {
+      "bounds": {
+        "x": 912,
+        "y": 291,
+        "width": 663,
+        "height": 822
+      },
+      "action": {
+        "type": "message",
+        "text": "#風格轉換"
+      }
+    },
+    {
+      "bounds": {
+        "x": 1699,
+        "y": 402,
+        "width": 702,
+        "height": 707
+      },
+      "action": {
+        "type": "message",
+        "text": "#使用者資訊"
+      }
+    }
+  ]
+}
