@@ -100,6 +100,7 @@ def detect_json_array_to_new_message_array(fileName):
     #開啟檔案，轉成json
     with open(fileName) as f:
         jsonArray = json.load(f)
+    print(jsonArray)
     
     # 解析json
     returnArray = []
@@ -137,21 +138,18 @@ def detect_json_array_to_new_message_array(fileName):
 @handler.add(FollowEvent)
 def process_follow_event(event):
     # 綁定(圖文選單)
-    linkRichMenuId = open(rich_menu_id_title, 'r').read()
-    line_bot_api.link_rich_menu_to_user(event.source.user_id,linkRichMenuId)
+    # linkRichMenuId = open(rich_menu_id_title, 'r').read()
+    # line_bot_api.link_rich_menu_to_user(event.source.user_id,linkRichMenuId)
     
     # 讀取並轉換
-    result_message_array =[]
-    replyJsonPath = "data/join/001/reply.json"
-    replyJsonPath2 = "data/join/002/reply.json"
-    result_message_array += detect_json_array_to_new_message_array(replyJsonPath)
-    result_message_array += detect_json_array_to_new_message_array(replyJsonPath2)
+    jsonArray = json.load(open("data/join/001/reply.json"))[0]
+    text_message = FlexSendMessage.new_from_json_dict(jsonArray)
+    jsonArray2 = json.load(open("data/join/002/reply.json"))[0]
+    flex_message = FlexSendMessage.new_from_json_dict(jsonArray2)
 
     # 消息發送
-    line_bot_api.reply_message(
-        event.reply_token,
-        result_message_array
-    )
+    line_bot_api.reply_message(event.reply_token,text_message)
+    line_bot_api.reply_message(event.reply_token,flex_message)
     
     
 # 文字消息處理
