@@ -9,38 +9,41 @@
   "areas": [
     {
       "bounds": {
-        "x": 4,
-        "y": 449,
-        "width": 835,
-        "height": 548
+        "x": 0,
+        "y": 4,
+        "width": 878,
+        "height": 1308
       },
       "action": {
-        "type": "message",
-        "text": "#音樂生成"
+        "type": "postback",
+        "text": "♪製作音樂",
+        "data": "text=製作音樂"
       }
     },
     {
       "bounds": {
-        "x": 912,
-        "y": 291,
-        "width": 663,
-        "height": 822
+        "x": 878,
+        "y": 4,
+        "width": 809,
+        "height": 1308
       },
       "action": {
-        "type": "message",
-        "text": "#風格轉換"
+        "type": "postback",
+        "text": "♪播放紀錄",
+        "data": "text=播放紀錄"
       }
     },
     {
       "bounds": {
-        "x": 1699,
-        "y": 402,
-        "width": 702,
-        "height": 707
+        "x": 1682,
+        "y": 9,
+        "width": 809,
+        "height": 1284
       },
       "action": {
-        "type": "message",
-        "text": "#使用者資訊"
+        "type": "postback",
+        "text": "♪關於我們，AI技術來生成音樂，創作出來的音樂可以個人喜好轉換內建風格!目前建立了8種類型音樂以及5種風格提供給喜愛音樂同好，未來將努力建構更多音樂生成功能!",
+        "data": "text=關於我們"
       }
     }
   ]

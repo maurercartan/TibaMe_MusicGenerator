@@ -4,67 +4,85 @@
     "height": 1686
   },
   "selected": true,
-  "name": "音樂生成",
+  "name": "音樂風格",
   "chatBarText": "查看更多資訊",
   "areas": [
     {
       "bounds": {
-        "x": 193,
-        "y": 171,
-        "width": 458,
-        "height": 625
+        "x": 0,
+        "y": 0,
+        "width": 693,
+        "height": 646
       },
       "action": {
-        "type": "message",
-        "text": "#UNISON"
+        "type": "postback",
+        "text": "♪R3音源",
+        "data": "text=R3音源"
       }
     },
     {
       "bounds": {
-        "x": 565,
-        "y": 946,
-        "width": 578,
-        "height": 565
+        "x": 0,
+        "y": 646,
+        "width": 693,
+        "height": 1036
       },
       "action": {
-        "type": "message",
-        "text": "#SUPERMARIO64"
+        "type": "postback",
+        "text": "♪A340音源",
+        "data": "text=A340音源"
       }
     },
     {
       "bounds": {
-        "x": 916,
-        "y": 81,
-        "width": 566,
-        "height": 527
+        "x": 698,
+        "y": 4,
+        "width": 775,
+        "height": 1143
       },
       "action": {
-        "type": "message",
-        "text": "#REALITY"
+        "type": "postback",
+        "text": "♪通用音樂風格",
+        "data": "text=通用音樂風格"
       }
     },
     {
       "bounds": {
-        "x": 1640,
-        "y": 393,
-        "width": 818,
-        "height": 600
+        "x": 702,
+        "y": 1147,
+        "width": 767,
+        "height": 539
       },
       "action": {
-        "type": "message",
-        "text": "#FF7"
+        "type": "postback",
+        "text": "♪寫實風格",
+        "data": "text=寫實風格"
       }
     },
     {
       "bounds": {
-        "x": 2051,
-        "y": 1246,
-        "width": 436,
-        "height": 440
+        "x": 1468,
+        "y": 0,
+        "width": 1027,
+        "height": 1160
       },
       "action": {
-        "type": "message",
-        "text": "#上一頁"
+        "type": "postback",
+        "text": "♪輕快風格",
+        "data": "text=輕快風格"
+      }
+    },
+    {
+      "bounds": {
+        "x": 1738,
+        "y": 1348,
+        "width": 762,
+        "height": 338
+      },
+      "action": {
+        "type": "postback",
+        "text": "♪回主選單",
+        "data": "text=回主選單"
       }
     }
   ]

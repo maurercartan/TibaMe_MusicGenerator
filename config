@@ -4,7 +4,7 @@ secret_key = "1ea545fc3bb1d926b48b506c30259235"
 server_url = "https://raw.githubusercontent.com/maurercartan/Music_Project/master"
 rich_menu_id_title = "./data/rich_menu/rich_menu_id"
 rich_menu_id_generator = "./data/rich_menu2/rich_menu_id"
-rich_menu_id_null = "./data/rich_menu3/rich_menu_id"
+rich_menu_id_style = "./data/rich_menu3/rich_menu_id"
 
 [model_server]
 mid_total_num = 40

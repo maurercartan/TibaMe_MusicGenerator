@@ -28,3 +28,6 @@
     1.實現程式上傳至heroku,並可支援兩個Server(Line Server)與(Model Server)同時運作
     2.解決轉檔必須要(音樂軟體)的問題,方法是利用爬蟲技術進行線上轉檔<https://solmire.com/midi-to-mp3>
     3.解決(midi轉mp3)後連結無效問題,因為上傳與生成需要等待時間所造成
+
+2020.03.09
+    1.LineBot界面更新

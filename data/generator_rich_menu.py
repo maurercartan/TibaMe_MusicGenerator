@@ -12,7 +12,7 @@ if __name__=="__main__":
     channel_access_token = cfg['line_server']['channel_access_token'].replace('"','')
     rich_menu_json  = f"./{sys.argv[1]}/rich_menu.json"
     rich_menu_id    = f"./{sys.argv[1]}/rich_menu_id"
-    rich_menu_img   = f"./{sys.argv[1]}/rich_menu.png"   
+    rich_menu_img   = f"./{sys.argv[1]}/rich_menu.jpg"   
 
     # 創建 line_bot_api ,並放入我方的 channel_access_token
     line_bot_api = LineBotApi(channel_access_token)

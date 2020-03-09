@@ -111,7 +111,7 @@ def upload_midi_to_mp3(mid_name,mid_file,sf_code_num):
     #sf_code = ["SGM2","PC51","PCL","GUS","UNISON","CHORIUM","TITANIC","MAGICSF2","32MBGM",
     #          "A340","CADENZA","FLUIDR3","GENUS","MERLIN","XIOAD","SAPHYR","REALITY","JURGEN","FF7",
     #          "ARACHNO","TIMBERS","SUPERMARIO64","COMPIFONT","OMEGA"]
-    sf_code = ["32MBGM","A340","FLUIDR3","PCL"]
+    sf_code = ["32MBGM","A340","FLUIDR3","PCL","REALITY"]
     url = "https://solmire.com/upload.php"
     data = MultipartEncoder(
         fields={

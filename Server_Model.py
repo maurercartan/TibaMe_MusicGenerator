@@ -74,6 +74,8 @@ def create_new_url(music_type,ids):
         paths = Upload_Midi2Mp3.upload_multi_file(mid_files,2)
     elif music_type=="PCL":
         paths = Upload_Midi2Mp3.upload_multi_file(mid_files,3)
+    elif music_type=="REALITY":
+        paths = Upload_Midi2Mp3.upload_multi_file(mid_files,4)
     else:
         return
     print(paths)
@@ -99,7 +101,8 @@ def create_new_url(music_type,ids):
         "32MBGM":1,
         "A340":2,
         "FLUIDR3":3,
-        "PCL":4
+        "PCL":4,
+        "REALITY":5
     }
     if create_date=='':
         next_day = datetime.now() + timedelta(days=5)
@@ -119,16 +122,16 @@ def create_new_url(music_type,ids):
     
 def generator_all_mp3(model):
     # 清空檔案
-    # print("清空資料夾...")
-    # remove_all_file(mid_dir,"mid")
-    # print("="*50)
+    print("清空資料夾...")
+    remove_all_file(mid_dir,"mid")
+    print("="*50)
     
     # 生成音樂
     print("音樂生成中...")
     mid_files = []
-    for i in range(mid_total_num*4):
+    for i in range(mid_total_num*5):
         mid_path = f"{mid_dir}/{str(i)}.mid"
-        # make_note(mid_path,model)
+        make_note(mid_path,model)
         mid_files.append(mid_path)
         print("生成: ",mid_path)
     print("mid_files=",mid_files)
@@ -136,8 +139,7 @@ def generator_all_mp3(model):
     
     # 上傳音樂
     print("音樂上傳中(0)...")
-    # v1_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[:mid_total_num],0)
-    v1_paths= ['https://tinyurl.com/uv854xg', 'https://tinyurl.com/uu5pwr9', 'https://tinyurl.com/w57bvhn', 'https://tinyurl.com/r2cqtyt', 'https://tinyurl.com/uttgkjf', 'https://tinyurl.com/sc2p9sm', 'https://tinyurl.com/w6sodl2', 'https://tinyurl.com/t7la7kw', 'https://tinyurl.com/t64q8c9', 'https://tinyurl.com/t9y9gcz', 'https://tinyurl.com/tcmhoxm', 'https://tinyurl.com/tkymnvx', 'https://tinyurl.com/ros6pmq', 'https://tinyurl.com/ty2mj3z', 'https://tinyurl.com/tmmb64w', 'https://tinyurl.com/szu7o6d', 'https://tinyurl.com/uqxf8zt', 'https://tinyurl.com/vbls8rw', 'https://tinyurl.com/rjxkdfx','https://tinyurl.com/tmko9uo', 'https://tinyurl.com/qn8xylf', 'https://tinyurl.com/wcyz8vo', 'https://tinyurl.com/ulm7dyw', 'https://tinyurl.com/rn7eczp', 'https://tinyurl.com/tldv9bc', 'https://tinyurl.com/qrk43yd', 'https://tinyurl.com/s46wcpj', 'https://tinyurl.com/sb9dexj', 'https://tinyurl.com/vszpmv3', 'https://tinyurl.com/yx7khq5z', 'https://tinyurl.com/szurq5o', 'https://tinyurl.com/t8p5jmz', 'https://tinyurl.com/wtvktyg', 'https://tinyurl.com/vbo27yz', 'https://tinyurl.com/vv476vg', 'https://tinyurl.com/wbnghvs', 'https://tinyurl.com/sle2bwz', 'https://tinyurl.com/ud84scv', 'https://tinyurl.com/tmt4g9h', 'https://tinyurl.com/wpqj8mq']
+    v1_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[:mid_total_num],0)
     print("音樂上傳中(1)...")
     v2_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num:mid_total_num*2],1)
     print("v2_paths=",v2_paths)
@@ -147,6 +149,10 @@ def generator_all_mp3(model):
     print("音樂上傳中(3)...")
     v4_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num*3:mid_total_num*4],3)
     print("v4_paths=",v4_paths)
+    print("="*50)
+    print("音樂上傳中(4)...")
+    v5_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num*4:mid_total_num*5],4)
+    print("v5_paths=",v5_paths)
     print("="*50)
     
     # 記錄資料
@@ -184,6 +190,14 @@ def generator_all_mp3(model):
                  "PCL"]
         pg_data.append(item2)
         print(f"PCL : {item}")
+    for item in v5_paths:
+        item2 = [len(pg_data)+1,
+                 item,
+                 'false',
+                 datetime.now().strftime("%Y/%m/%d"),
+                 "REALITY"]
+        pg_data.append(item2)
+        print(f"REALITY : {item}")
         
     # 寫入資料庫(postgresql)
     # file_info
@@ -199,6 +213,7 @@ def generator_all_mp3(model):
     pg.upsert_monitor_info([2,0,len(v2_paths),next_day,'A340'])
     pg.upsert_monitor_info([3,0,len(v3_paths),next_day,'FLUIDR3'])
     pg.upsert_monitor_info([4,0,len(v4_paths),next_day,'PCL'])
+    pg.upsert_monitor_info([5,0,len(v5_paths),next_day,'REALITY'])
     pg.close()
     print("="*50)
     
@@ -222,6 +237,7 @@ if __name__=="__main__":
             [v2_use_num,v2_total_num,v2_next_day] = pg.select_table("select use_number,total_number,next_update_date from monitor_info where music_type='A340';")[0]
             [v3_use_num,v3_total_num,v3_next_day] = pg.select_table("select use_number,total_number,next_update_date from monitor_info where music_type='FLUIDR3';")[0]
             [v4_use_num,v4_total_num,v4_next_day] = pg.select_table("select use_number,total_number,next_update_date from monitor_info where music_type='PCL';")[0]
+            [v5_use_num,v5_total_num,v5_next_day] = pg.select_table("select use_number,total_number,next_update_date from monitor_info where music_type='REALITY';")[0]
             #pg.close()
             
             # 日期類型比較
@@ -263,6 +279,15 @@ if __name__=="__main__":
                 create_new_url(music_type,ids)
             elif datetime.now().date()>=v4_next_day:
                 music_type = 'PCL'
+                today = datetime.now().strftime('%Y/%m/%d')
+                ids = pg.select_table(f"select id from file_info where music_type='{music_type}' and DATEDIFF(day, create_date, '{today}')<1;")
+                create_new_url(music_type,ids)
+            if v5_use_num>int(v5_total_num*rate):
+                music_type = 'REALITY'
+                ids = pg.select_table(f"select id from file_info where music_type='{music_type}' and use_status='t';")
+                create_new_url(music_type,ids)
+            elif datetime.now().date()>=v5_next_day:
+                music_type = 'REALITY'
                 today = datetime.now().strftime('%Y/%m/%d')
                 ids = pg.select_table(f"select id from file_info where music_type='{music_type}' and DATEDIFF(day, create_date, '{today}')<1;")
                 create_new_url(music_type,ids)
