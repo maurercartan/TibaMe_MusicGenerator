@@ -1,0 +1,89 @@
+{
+  "type": "flex",
+  "altText": "Flex Message",
+  "contents": {
+    "type": "bubble",
+    "direction": "ltr",
+    "header": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [
+        {
+          "type": "text",
+          "text": "♪點播率排行榜",
+          "align": "center",
+          "weight": "bold",
+          "color": "#A71586"
+        }
+      ]
+    },
+    "hero": {
+      "type": "image",
+      "url": "https://language.chinadaily.com.cn/images/attachement/jpg/site1/20160504/00221910993f1893e2ae26.jpg",
+      "size": "full",
+      "aspectRatio": "1:1",
+      "aspectMode": "cover"
+    },
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [
+        {
+          "type": "button",
+          "action": {
+            "type": "message",
+            "label": "♪第一名",
+            "text": "___1___"
+          },
+          "color": "#F6321F",
+          "style": "primary"
+        },
+        {
+          "type": "button",
+          "action": {
+            "type": "message",
+            "label": "♪第二名",
+            "text": "___2___"
+          },
+          "color": "#E8EA55",
+          "style": "primary"
+        },
+        {
+          "type": "button",
+          "action": {
+            "type": "message",
+            "label": "♪第三名",
+            "text": "___3___"
+          },
+          "color": "#82AE14",
+          "style": "primary"
+        },
+        {
+          "type": "button",
+          "action": {
+            "type": "message",
+            "label": "♪第四名",
+            "text": "___4___"
+          },
+          "color": "#D0CE94",
+          "style": "primary"
+        },
+        {
+          "type": "button",
+          "action": {
+            "type": "message",
+            "label": "♪第五名",
+            "text": "___5___"
+          },
+          "color": "#97A7C7",
+          "style": "primary"
+        }
+      ]
+    },
+    "styles": {
+      "body": {
+        "backgroundColor": "#C5C8DB"
+      }
+    }
+  }
+}

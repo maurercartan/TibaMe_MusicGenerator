@@ -16,6 +16,7 @@ midi to mp3:
 
 # 引用Web Server套件
 from flask import Flask, request, abort
+from urllib.parse import parse_qs 
 
 # 從linebot 套件包裡引用 LineBotApi 與 WebhookHandler 類別
 from linebot import (
@@ -138,171 +139,151 @@ def detect_json_array_to_new_message_array(fileName):
 @handler.add(FollowEvent)
 def process_follow_event(event):
     # 綁定(圖文選單)
-    # linkRichMenuId = open(rich_menu_id_title, 'r').read()
-    # line_bot_api.link_rich_menu_to_user(event.source.user_id,linkRichMenuId)
-    
+    linkRichMenuId = open(rich_menu_id_title, 'r').read()
+    line_bot_api.link_rich_menu_to_user(event.source.user_id,linkRichMenuId)
+
     # 讀取並轉換
-    jsonArray = json.load(open("data/join/001/reply.json"))[0]
-    text_message = FlexSendMessage.new_from_json_dict(jsonArray)
-    jsonArray2 = json.load(open("data/join/002/reply.json"))[0]
-    flex_message = FlexSendMessage.new_from_json_dict(jsonArray2)
+    jsonArray = json.load(open("data/message/001/reply.json",encoding="utf-8"))
+    text_message = TextSendMessage.new_from_json_dict(jsonArray)
 
     # 消息發送
-    line_bot_api.reply_message(event.reply_token,text_message)
-    line_bot_api.reply_message(event.reply_token,flex_message)
+    line_bot_api.reply_message(event.reply_token,[text_message])
     
     
 # 文字消息處理
 @handler.add(MessageEvent,message=TextMessage)
 def process_text_message(event):
-    # 讀取本地檔案，並轉譯成消息
-    result_message_array =[]
-    if event.message.text=="#音樂生成":
-        # 綁定(圖文選單)
-        linkRichMenuId = open(rich_menu_id_generator, 'r').read()
-        line_bot_api.link_rich_menu_to_user(event.source.user_id,linkRichMenuId)
-    elif event.message.text=="#風格轉換":
-        # 綁定(圖文選單)
-        linkRichMenuId = open(rich_menu_id_style, 'r').read()
-        line_bot_api.link_rich_menu_to_user(event.source.user_id,linkRichMenuId)
-    elif event.message.text=="#使用者資訊":
-        # 綁定(圖文選單)
-        linkRichMenuId = open(rich_menu_id_style, 'r').read()
-        line_bot_api.link_rich_menu_to_user(event.source.user_id,linkRichMenuId)
-    elif event.message.text=="#32MBGM":
-        music_type='32MBGM'
-        pg = Create_PG_SQL()
-        [id,mp3_url] = pg.select_table("select id,mp3_url from file_info where use_status='f' and music_type='%s';"%music_type)[0]
-        long_url = Upload_Midi2Mp3.short_to_long(mp3_url) # (短網址)還原(長網址)
-        try:
-            #語音訊息
-            audio_message = AudioSendMessage(original_content_url=long_url,duration=music_length_second*1000)
-            # 發送
-            line_bot_api.reply_message(event.reply_token,audio_message)
-        except:
-            pass
-        pg.update_cmd("update file_info set use_status='t' where id=%s"%id)
-        pg.update_cmd("update monitor_info set use_number=use_number+1 where music_type='%s'"%music_type)
-        pg.upsert_user_info([event.source.user_id,music_type,1,""])
-        pg.close()
-    elif event.message.text=="#A340":
-        music_type='A340'
-        pg = Create_PG_SQL()
-        [id,mp3_url] = pg.select_table("select id,mp3_url from file_info where use_status='f' and music_type='%s';"%music_type)[0]
-        long_url = Upload_Midi2Mp3.short_to_long(mp3_url) # (短網址)還原(長網址)
-        try:
-            #語音訊息
-            audio_message = AudioSendMessage(original_content_url=long_url,duration=music_length_second*1000)
-            # 發送
-            line_bot_api.reply_message(event.reply_token,audio_message)
-        except:
-            pass
-        pg.update_cmd("update file_info set use_status='t' where id=%s"%id)
-        pg.update_cmd("update monitor_info set use_number=use_number+1 where music_type='%s'"%music_type)
-        pg.upsert_user_info([event.source.user_id,music_type,1,""])
-        pg.close()
-    elif event.message.text=="#FLUIDR3":
-        music_type='FLUIDR3'
-        pg = Create_PG_SQL()
-        [id,mp3_url] = pg.select_table("select id,mp3_url from file_info where use_status='f' and music_type='%s';"%music_type)[0]
-        long_url = Upload_Midi2Mp3.short_to_long(mp3_url) # (短網址)還原(長網址)
-        try:
-            #語音訊息
-            audio_message = AudioSendMessage(original_content_url=long_url,duration=music_length_second*1000)
-            # 發送
-            line_bot_api.reply_message(event.reply_token,audio_message)
-        except:
-            pass
-        pg.update_cmd("update file_info set use_status='t' where id=%s"%id)
-        pg.update_cmd("update monitor_info set use_number=use_number+1 where music_type='%s'"%music_type)
-        pg.upsert_user_info([event.source.user_id,music_type,1,""])
-        pg.close()
-    elif event.message.text=="#PCL":
-        music_type='PCL'
-        pg = Create_PG_SQL()
-        [id,mp3_url] = pg.select_table("select id,mp3_url from file_info where use_status='f' and music_type='%s';"%music_type)[0]
-        long_url = Upload_Midi2Mp3.short_to_long(mp3_url) # (短網址)還原(長網址)
-        try:
-            #語音訊息
-            audio_message = AudioSendMessage(original_content_url=long_url,duration=music_length_second*1000)
-            # 發送
-            line_bot_api.reply_message(event.reply_token,audio_message)
-        except:
-            pass
-        pg.update_cmd("update file_info set use_status='t' where id=%s"%id)
-        pg.update_cmd("update monitor_info set use_number=use_number+1 where music_type='%s'"%music_type)
-        pg.upsert_user_info([event.source.user_id,music_type,1,""])
-        pg.close()
-    elif event.message.text=="#REALITY":
-        music_type='REALITY'
-        pg = Create_PG_SQL()
-        [id,mp3_url] = pg.select_table("select id,mp3_url from file_info where use_status='f' and music_type='%s';"%music_type)[0]
-        long_url = Upload_Midi2Mp3.short_to_long(mp3_url) # (短網址)還原(長網址)
-        try:
-            #語音訊息
-            audio_message = AudioSendMessage(original_content_url=long_url,duration=music_length_second*1000)
-            # 發送
-            line_bot_api.reply_message(event.reply_token,audio_message)
-        except:
-            pass
-        pg.update_cmd("update file_info set use_status='t' where id=%s"%id)
-        pg.update_cmd("update monitor_info set use_number=use_number+1 where music_type='%s'"%music_type)
-        pg.upsert_user_info([event.source.user_id,music_type,1,""])
-        pg.close()
-    elif event.message.text=="#上一頁":
-        # 綁定(圖文選單)
-        linkRichMenuId = open(rich_menu_id_title, 'r').read()
-        line_bot_api.link_rich_menu_to_user(event.source.user_id,linkRichMenuId)
-    elif event.message.text=="#qrcode":
-        # 傳送QR-code圖片
-        img_url = "https://qr-official.line.me/sid/L/673vaqvk.png"
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=img_url)
-        )
+    pass
     
 @handler.add(PostbackEvent)
 def process_postback_event(event):
+    user_id = event.source.user_id
     query_string_dict = parse_qs(event.postback.data)
 
     if 'text' in query_string_dict:
         text = query_string_dict.get('text')[0]
         if text=="製作音樂":
-            pass
-        elif text=="播放紀錄":
-            pass
+            # 綁定(圖文選單)
+            linkRichMenuId = open(rich_menu_id_generator, 'r').read()
+            line_bot_api.link_rich_menu_to_user(user_id,linkRichMenuId)
+        elif text=="音樂點擊率":
+            music_type_dict = {"FLUIDR3":"R3音源","A340":"A340音源","32MBGM":"通用音樂風格","REALITY":"寫實風格","PCL":"輕快風格"}
+        
+            # 讀取字串
+            stringArray = open("data/message/003/reply.json",encoding="utf-8").read()
+            
+            # 取得排名
+            pg = Create_PG_SQL()
+            result = pg.select_table("select type,num from user_info where user_id='%s' and type in ('FLUIDR3','A340','32MBGM','REALITY','PCL');"%user_id)
+            pg.close()
+            sort_dict = {'FLUIDR3':0,'A340':0,'32MBGM':0,'REALITY':0,'PCL':0}
+            for item in result:
+                if item[0] in sort_dict.keys(): sort_dict[item[0]] = int(item[1])
+            sort_list = sorted(sort_dict.items(), key=lambda d: int(d[1]),reverse=True)
+            for i in range(len(sort_list)):
+                key   = music_type_dict[sort_list[i][0]]
+                value = sort_list[i][1]
+                msg = f"第{i+1}名:{key}\n總點擊次數:{value}"
+                stringArray = stringArray.replace(f"___{i+1}___",msg)
+                
+            # 讀取json
+            jsonArray = json.loads(stringArray,strict=False)
+            flex_message = FlexSendMessage.new_from_json_dict(jsonArray)
+                
+            # 消息發送
+            line_bot_api.reply_message(event.reply_token,[flex_message])
         elif text=="關於我們":
-            pass
+            # 讀取json
+            jsonArray = json.load(open("data/message/002/reply.json",encoding="utf-8"))
+            template_message = TemplateSendMessage.new_from_json_dict(jsonArray)
+            
+            # 消息發送
+            line_bot_api.reply_message(event.reply_token,[template_message])
         elif text=="R3音源":
-            pass
+            music_type='FLUIDR3'
+            pg = Create_PG_SQL()
+            [id,mp3_url] = pg.select_table("select id,mp3_url from file_info where use_status='f' and music_type='%s';"%music_type)[0]
+            long_url = Upload_Midi2Mp3.short_to_long(mp3_url) # (短網址)還原(長網址)
+            try:
+                #語音訊息
+                audio_message = AudioSendMessage(original_content_url=long_url,duration=music_length_second*1000)
+                # 發送
+                line_bot_api.reply_message(event.reply_token,audio_message)
+            except:
+                pass
+            pg.update_cmd("update file_info set use_status='t' where id=%s"%id)
+            pg.update_cmd("update monitor_info set use_number=use_number+1 where music_type='%s'"%music_type)
+            pg.upsert_user_info([user_id,music_type,1,""])
+            pg.close()
         elif text=="A340音源":
-            pass
+            music_type='A340'
+            pg = Create_PG_SQL()
+            [id,mp3_url] = pg.select_table("select id,mp3_url from file_info where use_status='f' and music_type='%s';"%music_type)[0]
+            long_url = Upload_Midi2Mp3.short_to_long(mp3_url) # (短網址)還原(長網址)
+            try:
+                #語音訊息
+                audio_message = AudioSendMessage(original_content_url=long_url,duration=music_length_second*1000)
+                # 發送
+                line_bot_api.reply_message(event.reply_token,audio_message)
+            except:
+                pass
+            pg.update_cmd("update file_info set use_status='t' where id=%s"%id)
+            pg.update_cmd("update monitor_info set use_number=use_number+1 where music_type='%s'"%music_type)
+            pg.upsert_user_info([user_id,music_type,1,""])
+            pg.close()
         elif text=="通用音樂風格":
-            pass
+            music_type='32MBGM'
+            pg = Create_PG_SQL()
+            [id,mp3_url] = pg.select_table("select id,mp3_url from file_info where use_status='f' and music_type='%s';"%music_type)[0]
+            long_url = Upload_Midi2Mp3.short_to_long(mp3_url) # (短網址)還原(長網址)
+            try:
+                #語音訊息
+                audio_message = AudioSendMessage(original_content_url=long_url,duration=music_length_second*1000)
+                # 發送
+                line_bot_api.reply_message(event.reply_token,audio_message)
+            except:
+                pass
+            pg.update_cmd("update file_info set use_status='t' where id=%s"%id)
+            pg.update_cmd("update monitor_info set use_number=use_number+1 where music_type='%s'"%music_type)
+            pg.upsert_user_info([user_id,music_type,1,""])
+            pg.close()
         elif text=="寫實風格":
-            pass
+            music_type='REALITY'
+            pg = Create_PG_SQL()
+            [id,mp3_url] = pg.select_table("select id,mp3_url from file_info where use_status='f' and music_type='%s';"%music_type)[0]
+            long_url = Upload_Midi2Mp3.short_to_long(mp3_url) # (短網址)還原(長網址)
+            try:
+                #語音訊息
+                audio_message = AudioSendMessage(original_content_url=long_url,duration=music_length_second*1000)
+                # 發送
+                line_bot_api.reply_message(event.reply_token,audio_message)
+            except:
+                pass
+            pg.update_cmd("update file_info set use_status='t' where id=%s"%id)
+            pg.update_cmd("update monitor_info set use_number=use_number+1 where music_type='%s'"%music_type)
+            pg.upsert_user_info([user_id,music_type,1,""])
+            pg.close()
         elif text=="輕快風格":
-            pass
+            music_type='PCL'
+            pg = Create_PG_SQL()
+            [id,mp3_url] = pg.select_table("select id,mp3_url from file_info where use_status='f' and music_type='%s';"%music_type)[0]
+            long_url = Upload_Midi2Mp3.short_to_long(mp3_url) # (短網址)還原(長網址)
+            try:
+                #語音訊息
+                audio_message = AudioSendMessage(original_content_url=long_url,duration=music_length_second*1000)
+                # 發送
+                line_bot_api.reply_message(event.reply_token,audio_message)
+            except:
+                pass
+            pg.update_cmd("update file_info set use_status='t' where id=%s"%id)
+            pg.update_cmd("update monitor_info set use_number=use_number+1 where music_type='%s'"%music_type)
+            pg.upsert_user_info([user_id,music_type,1,""])
+            pg.close()
         elif text=="回主選單":
-            pass
-        elif text=="其他靈感":
-            pass
-        elif text=="鄉村音樂":
-            pass
-        elif text=="民謠音樂":
-            pass
-        elif text=="爵士音樂":
-            pass
-        elif text=="搖滾音樂":
-            pass
-        elif text=="藍調音樂":
-            pass
-        elif text=="古典音樂":
-            pass
-        elif text=="disco":
-            pass
-        elif text=="福音音樂":
-            pass
+            # 綁定(圖文選單)
+            linkRichMenuId = open(rich_menu_id_title, 'r').read()
+            line_bot_api.link_rich_menu_to_user(user_id,linkRichMenuId)
+            
 if __name__ == "__main__":
     # 本地執行
     #app.run(host='0.0.0.0')

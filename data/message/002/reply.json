@@ -1,0 +1,87 @@
+{
+  "type": "template",
+  "altText": "this is a carousel template",
+  "template": {
+    "type": "carousel",
+    "actions": [],
+    "columns": [
+      {
+        "thumbnailImageUrl": "https://dictionary.cambridge.org/zht/images/thumb/grandp_noun_002_16333.jpg",
+        "text": "大家好~我是杰佑 ",
+        "actions": [
+          {
+            "type": "uri",
+            "label": "♪關於我",
+            "uri": "http://image.isu.pub/200225084158-0fb7bc132072b45984e9156f5b8f90d0/jpg/page_18.jpg"
+          }
+        ]
+      },
+      {
+        "thumbnailImageUrl": "https://dictionary.cambridge.org/zht/images/thumb/grandp_noun_002_16333.jpg",
+        "text": "HI~我是紫萱",
+        "actions": [
+          {
+            "type": "uri",
+            "label": "♪關於我",
+            "uri": "http://image.isu.pub/200225084158-0fb7bc132072b45984e9156f5b8f90d0/jpg/page_17.jpg"
+          }
+        ]
+      },
+      {
+        "thumbnailImageUrl": "https://dictionary.cambridge.org/zht/images/thumb/grandp_noun_002_16333.jpg",
+        "text": "hello~我是海若",
+        "actions": [
+          {
+            "type": "uri",
+            "label": "♪關於我",
+            "uri": "http://image.isu.pub/200225084158-0fb7bc132072b45984e9156f5b8f90d0/jpg/page_22.jpg"
+          }
+        ]
+      },
+      {
+        "thumbnailImageUrl": "https://dictionary.cambridge.org/zht/images/thumb/grandp_noun_002_16333.jpg",
+        "text": "嗨~我是衍俊",
+        "actions": [
+          {
+            "type": "uri",
+            "label": "♪關於我",
+            "uri": "http://image.isu.pub/200225084158-0fb7bc132072b45984e9156f5b8f90d0/jpg/page_19.jpg"
+          }
+        ]
+      },
+      {
+        "thumbnailImageUrl": "https://dictionary.cambridge.org/zht/images/thumb/grandp_noun_002_16333.jpg",
+        "text": "HI~我是惠涵",
+        "actions": [
+          {
+            "type": "uri",
+            "label": "♪關於我",
+            "uri": "http://image.isu.pub/200225084158-0fb7bc132072b45984e9156f5b8f90d0/jpg/page_21.jpg"
+          }
+        ]
+      },
+      {
+        "thumbnailImageUrl": "https://dictionary.cambridge.org/zht/images/thumb/grandp_noun_002_16333.jpg",
+        "text": "hola~我是素雲",
+        "actions": [
+          {
+            "type": "uri",
+            "label": "♪關於我",
+            "uri": "http://image.isu.pub/200225084158-0fb7bc132072b45984e9156f5b8f90d0/jpg/page_23.jpg"
+          }
+        ]
+      },
+      {
+        "thumbnailImageUrl": "https://dictionary.cambridge.org/zht/images/thumb/grandp_noun_002_16333.jpg",
+        "text": "HEY~我是王翔",
+        "actions": [
+          {
+            "type": "uri",
+            "label": "♪關於我",
+            "uri": "http://image.isu.pub/200225084158-0fb7bc132072b45984e9156f5b8f90d0/jpg/page_1.jpg"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -11,8 +11,8 @@
       "bounds": {
         "x": 0,
         "y": 4,
-        "width": 878,
-        "height": 1308
+        "width": 813,
+        "height": 1682
       },
       "action": {
         "type": "postback",
@@ -22,27 +22,27 @@
     },
     {
       "bounds": {
-        "x": 878,
-        "y": 4,
-        "width": 809,
-        "height": 1308
+        "x": 818,
+        "y": 0,
+        "width": 851,
+        "height": 1678
       },
       "action": {
         "type": "postback",
-        "text": "♪播放紀錄",
-        "data": "text=播放紀錄"
+        "text": "♪音樂點擊率",
+        "data": "text=音樂點擊率"
       }
     },
     {
       "bounds": {
         "x": 1682,
         "y": 9,
-        "width": 809,
-        "height": 1284
+        "width": 817,
+        "height": 1677
       },
       "action": {
         "type": "postback",
-        "text": "♪關於我們，AI技術來生成音樂，創作出來的音樂可以個人喜好轉換內建風格!目前建立了8種類型音樂以及5種風格提供給喜愛音樂同好，未來將努力建構更多音樂生成功能!",
+        "text": "♪我們這一組",
         "data": "text=關於我們"
       }
     }
