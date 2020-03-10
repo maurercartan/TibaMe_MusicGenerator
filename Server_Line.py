@@ -166,7 +166,20 @@ def process_text_message(event):
 def process_postback_event(event):
     user_id = event.source.user_id
     query_string_dict = parse_qs(event.postback.data)
-
+    music_instrument = ["https://d1aeri3ty3izns.cloudfront.net/media/23/238052/1200/preview_1.jpg",
+                        "https://img.milanuncios.com/fg/2469/72/246972860_1.jpg",
+                        "https://www.thomann.de/pics/bdb/389769/11131665_800.jpg",
+                        "https://sc1.musik-produktiv.com/pic-010105999xl/buffet-crampon-bc-8102-1-0.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/716R2xL2mPL._AC_SL1500_.jpg",
+                        "https://images-na.ssl-images-amazon.com/images/I/61GK0FZsm1L._SX466_.jpg",
+                        "https://www.musikalessons.com/blog/wp-content/uploads/2016/10/viola-isolated.jpg",
+                        "https://www.thomann.de/pics/bdb/147571/14071697_800.jpg",
+                        "https://s3.amazonaws.com/images.static.steveweissmusic.com/products/images/uploads/1138847_43216_popup.jpg",
+                        "https://www.rimmersmusic.co.uk/images/antoni-adb05-1-4-double-bass-1-4-bag-p21553-25870_image.jpg",
+                        "https://www.thomann.de/pics/bdb/411814/12119632_800.jpg",
+                        "https://www.thomann.de/pics/bdb/137179/14342798_800.jpg",
+                        "https://cdn10.bigcommerce.com/s-sjkuycrcgv/products/1034/images/2965/Oboe-Rental__64362.1515887766.1280.1280.jpg"]
+    
     if 'text' in query_string_dict:
         text = query_string_dict.get('text')[0]
         if text=="製作音樂":
@@ -200,8 +213,17 @@ def process_postback_event(event):
             # 消息發送
             line_bot_api.reply_message(event.reply_token,[flex_message])
         elif text=="關於我們":
+            # 讀取字串
+            stringArray = open("data/message/002/reply.json",encoding="utf-8")
+            
+            # 放置圖片
+            img_num_list = random.sample(set(range(len(music_instrument))), 7)
+            for i in range(7):
+                img_url = music_instrument[img_num_list[i]]
+                stringArray = stringArray.replace(f"___{i}___",img_url)
+            
             # 讀取json
-            jsonArray = json.load(open("data/message/002/reply.json",encoding="utf-8"))
+            jsonArray = json.loads(stringArray,strict=False)
             template_message = TemplateSendMessage.new_from_json_dict(jsonArray)
             
             # 消息發送
