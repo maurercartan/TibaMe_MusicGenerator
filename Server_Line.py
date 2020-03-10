@@ -155,13 +155,12 @@ def process_follow_event(event):
 def process_text_message(event):
     if event.message.text=="#qrcode":
         # 傳送QR-code圖片
-        img_url = "https://qr-official.line.me/sid/L/673vaqvk.png"
-        img_url2 = "https://line.me/R/ti/p/%40673vaqvk"
-        line_bot_api.reply_message(
-            event.reply_token,
-            [TextSendMessage(text=img_url),
-             TextSendMessage(text=img_url2)]
-        )
+        # 讀取json
+        jsonArray = json.load(open("data/message/004/reply.json",encoding="utf-8"))
+        image_message = ImageSendMessage.new_from_json_dict(jsonArray)
+        
+        # 消息發送
+        line_bot_api.reply_message(event.reply_token,[image_message])
     
 @handler.add(PostbackEvent)
 def process_postback_event(event):
