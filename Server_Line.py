@@ -214,16 +214,14 @@ def process_postback_event(event):
             line_bot_api.reply_message(event.reply_token,[flex_message])
         elif text=="關於我們":
             # 讀取字串
-            stringArray = open("data/message/002/reply.json",encoding="utf-8")
+            stringArray = open("data/message/002/reply.json",encoding="utf-8").read()
             
             # 放置圖片
             img_num_list = random.sample(set(range(len(music_instrument))), 7)
-            print(img_num_list)
-            print(type(img_num_list))
             for i in range(7):
                 img_url = music_instrument[img_num_list[i]]
                 stringArray = stringArray.replace(f"___{i}___",img_url)
-            print(stringArray)
+
             # 讀取json
             jsonArray = json.loads(stringArray,strict=False)
             template_message = TemplateSendMessage.new_from_json_dict(jsonArray)
