@@ -1,6 +1,29 @@
 {
-  "type": "image",
-  "originalContentUrl": "https://line.me/R/ti/p/@673vaqvk",
-  "previewImageUrl": "https://qr-official.line.me/sid/L/673vaqvk.png",
-  "animated": false
+  "type": "flex",
+  "altText": "Flex Message",
+  "contents": {
+    "type": "bubble",
+    "direction": "ltr",
+    "hero": {
+      "type": "image",
+      "url": "https://qr-official.line.me/sid/L/673vaqvk.png",
+      "size": "full",
+      "aspectRatio": "1.51:1",
+      "aspectMode": "fit"
+    },
+    "footer": {
+      "type": "box",
+      "layout": "horizontal",
+      "contents": [
+        {
+          "type": "button",
+          "action": {
+            "type": "uri",
+            "label": "¥[¤J",
+            "uri": "https://line.me/R/ti/p/@673vaqvk"
+          }
+        }
+      ]
+    }
+  }
 }

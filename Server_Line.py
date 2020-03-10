@@ -157,10 +157,10 @@ def process_text_message(event):
         # 傳送QR-code圖片
         # 讀取json
         jsonArray = json.load(open("data/message/004/reply.json",encoding="utf-8"))
-        image_message = ImageSendMessage.new_from_json_dict(jsonArray)
+        flex_message = FlexSendMessage.new_from_json_dict(jsonArray)
         
         # 消息發送
-        line_bot_api.reply_message(event.reply_token,[image_message])
+        line_bot_api.reply_message(event.reply_token,[flex_message])
     
 @handler.add(PostbackEvent)
 def process_postback_event(event):
