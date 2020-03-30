@@ -7,7 +7,7 @@ rich_menu_id_generator = "./data/rich_menu2/rich_menu_id"
 rich_menu_id_style = "./data/rich_menu3/rich_menu_id"
 
 [model_server]
-mid_total_num = 40
+mid_total_num = 5
 model_path = "./models/LSTM_Test.h5"
 music_length_second = 10
 mid_dir = "./pre_generator_music"

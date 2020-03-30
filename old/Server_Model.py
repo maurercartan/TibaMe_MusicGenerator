@@ -140,26 +140,21 @@ def generator_all_mp3(model):
     # 上傳音樂
     print("音樂上傳中(0)...")
     v1_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[:mid_total_num],0)
-    open('v1_paths.txt','w').write(str(v1_paths))
+    #open('v1_paths.txt','w').write(str(v1_paths))
     print("音樂上傳中(1)...")
     v2_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num:mid_total_num*2],1)
-    open('v2_paths.txt','w').write(str(v2_paths))
+    #open('v2_paths.txt','w').write(str(v2_paths))
     print("音樂上傳中(2)...")
     v3_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num*2:mid_total_num*3],2)
-    open('v3_paths.txt','w').write(str(v3_paths))
+    #open('v3_paths.txt','w').write(str(v3_paths))
     print("音樂上傳中(3)...")
     v4_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num*3:mid_total_num*4],3)
-    open('v4_paths.txt','w').write(str(v4_paths))
+    #open('v4_paths.txt','w').write(str(v4_paths))
     print("="*50)
     print("音樂上傳中(4)...")
     v5_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num*4:mid_total_num*5],4)
-    open('v5_paths.txt','w').write(str(v5_paths))
+    #open('v5_paths.txt','w').write(str(v5_paths))
     print("="*50)
-    # v1_paths = open('v1_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
-    v2_paths = open('v2_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
-    v3_paths = open('v3_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
-    v4_paths = open('v4_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
-    v5_paths = open('v5_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
     
     # 記錄資料
     print("寫入資料庫...")
@@ -220,155 +215,6 @@ def generator_all_mp3(model):
     pg.upsert_monitor_info([3,0,len(v3_paths),next_day,'FLUIDR3'])
     pg.upsert_monitor_info([4,0,len(v4_paths),next_day,'PCL'])
     pg.upsert_monitor_info([5,0,len(v5_paths),next_day,'REALITY'])
-    pg.close()
-    print("="*50)
-    
-    # 再次清空
-    print("清空資料夾...")
-    remove_all_file(mid_dir,"mid")
-    print("="*50)
-    
-def generator_all_mp3_v2(model):
-    next_day = datetime.now() + timedelta(days=5)
-    next_day = next_day.strftime("%Y/%m/%d")
-
-    # 清空檔案
-    print("清空資料夾...")
-    remove_all_file(mid_dir,"mid")
-    print("="*50)
-    
-    # 生成音樂
-    print("音樂生成中...")
-    mid_files = []
-    for i in range(mid_total_num*5):
-        mid_path = f"{mid_dir}/{str(i)}.mid"
-        make_note(mid_path,model)
-        mid_files.append(mid_path)
-        print("生成: ",mid_path)
-    print("mid_files=",mid_files)
-    print("="*50)
-    
-    # 上傳音樂
-    print("音樂上傳中(0)...")
-    v1_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[:mid_total_num],0)
-    open('v1_paths.txt','w').write(str(v1_paths))
-    # 記錄資料
-    print("寫入資料庫...")
-    pg_data = []
-    for item in v1_paths:
-        item2 = [len(pg_data)+1,
-                 item,
-                 'false',
-                 datetime.now().strftime("%Y/%m/%d"),
-                 "32MBGM"]
-        pg_data.append(item2)
-        print(f"32MBGM : {item}")
-    # 寫入資料庫(postgresql)
-    # file_info
-    pg = Create_PG_SQL()
-    for item in pg_data:
-        pg.upsert_file_info(item)
-    # 寫入資料庫(postgresql)
-    # monitor_info
-    pg.upsert_monitor_info([1,0,len(v1_paths),next_day,'32MBGM'])
-    ####################################################################
-    print("音樂上傳中(1)...")
-    v2_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num:mid_total_num*2],1)
-    open('v2_paths.txt','w').write(str(v2_paths))
-    # 記錄資料
-    print("寫入資料庫...")
-    pg_data = []
-    for item in v2_paths:
-        item2 = [len(pg_data)+1,
-                 item,
-                 'false',
-                 datetime.now().strftime("%Y/%m/%d"),
-                 "A340"]
-        pg_data.append(item2)
-        print(f"A340 : {item}")
-    # 寫入資料庫(postgresql)
-    # file_info
-    pg = Create_PG_SQL()
-    for item in pg_data:
-        pg.upsert_file_info(item)
-        
-    # 寫入資料庫(postgresql)
-    # monitor_info
-    pg.upsert_monitor_info([2,0,len(v2_paths),next_day,'A340'])
-    ####################################################################
-    print("音樂上傳中(2)...")
-    v3_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num*2:mid_total_num*3],2)
-    open('v3_paths.txt','w').write(str(v3_paths))
-    # 記錄資料
-    print("寫入資料庫...")
-    pg_data = []
-    for item in v3_paths:
-        item2 = [len(pg_data)+1,
-                 item,
-                 'false',
-                 datetime.now().strftime("%Y/%m/%d"),
-                 "FLUIDR3"]
-        pg_data.append(item2)
-        print(f"FLUIDR3 : {item}")
-    # 寫入資料庫(postgresql)
-    # file_info
-    pg = Create_PG_SQL()
-    for item in pg_data:
-        pg.upsert_file_info(item)
-        
-    # 寫入資料庫(postgresql)
-    # monitor_info
-    pg.upsert_monitor_info([3,0,len(v3_paths),next_day,'FLUIDR3'])
-    ####################################################################
-    print("音樂上傳中(3)...")
-    v4_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num*3:mid_total_num*4],3)
-    open('v4_paths.txt','w').write(str(v4_paths))
-    # 記錄資料
-    print("寫入資料庫...")
-    pg_data = []
-    for item in v4_paths:
-        item2 = [len(pg_data)+1,
-                 item,
-                 'false',
-                 datetime.now().strftime("%Y/%m/%d"),
-                 "PCL"]
-        pg_data.append(item2)
-        print(f"PCL : {item}")
-    # 寫入資料庫(postgresql)
-    # file_info
-    pg = Create_PG_SQL()
-    for item in pg_data:
-        pg.upsert_file_info(item)
-        
-    # 寫入資料庫(postgresql)
-    # monitor_info
-    pg.upsert_monitor_info([4,0,len(v4_paths),next_day,'PCL'])
-    ####################################################################
-    print("="*50)
-    print("音樂上傳中(4)...")
-    v5_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num*4:mid_total_num*5],4)
-    open('v5_paths.txt','w').write(str(v5_paths))
-    # 記錄資料
-    print("寫入資料庫...")
-    pg_data = []
-    for item in v5_paths:
-        item2 = [len(pg_data)+1,
-                 item,
-                 'false',
-                 datetime.now().strftime("%Y/%m/%d"),
-                 "REALITY"]
-        pg_data.append(item2)
-        print(f"REALITY : {item}")
-    # 寫入資料庫(postgresql)
-    # file_info
-    pg = Create_PG_SQL()
-    for item in pg_data:
-        pg.upsert_file_info(item)
-        
-    # 寫入資料庫(postgresql)
-    # monitor_info
-    pg.upsert_monitor_info([5,0,len(v5_paths),next_day,'REALITY'])
-    ####################################################################
     pg.close()
     print("="*50)
     
@@ -384,7 +230,6 @@ if __name__=="__main__":
     is_generator_all = False
     if is_generator_all:
         generator_all_mp3(model)
-        # generator_all_mp3_v2(model)
     else:
         # 啟動監聽模式
         while True:

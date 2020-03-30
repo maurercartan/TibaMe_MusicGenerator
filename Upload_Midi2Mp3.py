@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import urllib
 import time
 from configparser import ConfigParser
+import random,string
 # 關閉警告訊息
 import warnings
 warnings.filterwarnings('ignore')
@@ -105,6 +106,92 @@ def upload_cloud(mp3_name,mp3_file):
             except:pass
     return url3
     
+def dict_to_string(cookies):
+    return "; ".join([str(x)+"="+str(y) for x,y in cookies.items()])
+    
+# 雲端拋棄式空間: <https://bitsend.jp/>
+# 參考資料: https://www.jianshu.com/p/902452189ca9
+def upload_cloud_v2(mp3_name,mp3_file):
+    with requests.Session() as s:
+        
+        # 第1層
+        r = s.get(
+            "https://bitsend.jp/",
+            headers={
+                "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.106 Safari/537.36",
+                "Cookie":dict_to_string(s.cookies.get_dict())
+            },
+            params={},
+            data={})
+        bs = BeautifulSoup(r.text, "html.parser")
+        find_result = bs.find_all("input")
+        u_key = ""
+        for item in find_result:
+            if "u_key" in str(item):
+                try:
+                    u_key = item["value"]
+                    break
+                except:pass
+        print(f"u_key = {u_key}")
+        # 第2層
+        while True:
+            try:
+                data_flow = urllib.request.urlopen(mp3_file).read()
+                break
+            except:
+                time.sleep(1)
+        data = MultipartEncoder(
+            fields={
+                "u_key":u_key,
+                "files[]": (mp3_name,data_flow,"audio/mp3")
+            },
+            boundary='----WebKitFormBoundary'+''.join(random.sample(string.ascii_letters+string.digits,16))
+        )
+        r2 = s.post(
+            "https://bitsend.jp/jqu/",
+            headers={
+                'Accept':'application/json, text/javascript, */*; q=0.01',
+                'Accept-Encoding':'gzip, deflate, br',
+                'Accept-Language':'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7',
+                'Connection':'keep-alive',
+                'Content-Length':'193592',
+                'Content-Type': data.content_type,
+                'User-Agent':'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
+                'Host':'bitsend.jp',
+                'Origin':'https://bitsend.jp',
+                'Referer':'https://bitsend.jp/',
+                'Sec-Fetch-Dest':'empty',
+                'Sec-Fetch-Mode':'cors',
+                'Sec-Fetch-Site':'same-origin',
+                'X-Requested-With':'XMLHttpRequest',
+                "Cookie":dict_to_string(s.cookies.get_dict())
+            },
+            params={},
+            data=data,
+            timeout=10)
+        file_code = json.loads(r2.text)["files"][0]["fileKey"]
+        url2 = f"https://bitsend.jp/download/{file_code}.html"
+        print(f"url2 = {url2}")
+        # 第3層
+        r3 = s.get(
+            url2,
+            headers={"User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.106 Safari/537.36"},
+            params={},
+            data={})
+        
+        bs = BeautifulSoup(r3.text, "html.parser")
+        find_result2 = bs.find_all("a")
+        url3 = ""
+        for item in find_result2:
+            if "btn-download" in str(item):
+                try:
+                    url3 = item["href"]
+                    break
+                except:pass
+        url4 = "https://bitsend.jp"+url3
+        print(f"url4 = {url4}")
+    return url4
+    
 # Midi to Mp3 <https://solmire.com/midi-to-mp3>
 # midi轉mp3
 def upload_midi_to_mp3(mid_name,mid_file,sf_code_num):
@@ -162,7 +249,8 @@ def upload_multi_file(mid_files,sf_code_num):
         print("id = ",mid_files[count])
         print("轉換後連結 = ",url)
         # 上傳到(雲端拋棄空間)
-        url2 = upload_cloud(url.rsplit('/', 1)[-1],url)
+        # url2 = upload_cloud(url.rsplit('/', 1)[-1],url)
+        url2 = upload_cloud_v2(url.rsplit('/', 1)[-1],url)
         print("上傳雲端連結 = ",url2)
         # (長網址)轉(短網址)
         url3 = long_to_short(url2)
@@ -172,13 +260,16 @@ def upload_multi_file(mid_files,sf_code_num):
     return result
         
 if __name__ == "__main__":
-    mid_name = "1.mid"
-    mid_file = "./pre_generator_music/1.mid"
-    sf_code_num = 0
-    upload_multi_file([mid_file],sf_code_num)
+    # mid_name = "1.mid"
+    # mid_file = "./pre_generator_music/1.mid"
+    # sf_code_num = 0
+    # upload_multi_file([mid_file],sf_code_num)
     # mp3_file = "https://solmire.com/uploads/1582095767_kzXWFnYAqw6cibUSv3o9.mp3"
     # name = mp3_file.rsplit('/', 1)[-1]
     # data_flow = urllib.request.urlopen(mp3_file).read()
     # print(data_flow)
     # print(name)
+    url = "https://solmire.com/uploads/1585577559_wByUnjpHSFEeLq4YAwcQ.mp3"
+    url2 = upload_cloud_v2(url.rsplit('/', 1)[-1],url)
+    print(url2)
    
