@@ -155,11 +155,11 @@ def generator_all_mp3(model):
     v5_paths = Upload_Midi2Mp3.upload_multi_file(mid_files[mid_total_num*4:mid_total_num*5],4)
     open('v5_paths.txt','w').write(str(v5_paths))
     print("="*50)
-    # v1_paths = open('v1_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
-    v2_paths = open('v2_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
-    v3_paths = open('v3_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
-    v4_paths = open('v4_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
-    v5_paths = open('v5_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
+    #v1_paths = open('v1_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
+    #v2_paths = open('v2_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
+    #v3_paths = open('v3_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
+    #v4_paths = open('v4_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
+    #v5_paths = open('v5_paths.txt','r').read().strip('[').strip(']').replace("'","").replace(" ","").split(',')
     
     # 記錄資料
     print("寫入資料庫...")

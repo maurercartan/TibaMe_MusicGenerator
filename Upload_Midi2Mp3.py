@@ -67,7 +67,7 @@ def upload_cloud(mp3_name,mp3_file):
             break
         except:
             time.sleep(1)
-    url = "https://upload.sendit.cloud/cgi-bin/upload.cgi?upload_type=file"
+    url = "https://wwww.sendit.cloud/cgi-bin/upload.cgi?upload_type=file"
     data = MultipartEncoder(
         fields={
             "sess_id":"", 
@@ -87,6 +87,7 @@ def upload_cloud(mp3_name,mp3_file):
         params={},
         data=data,
         verify=False)
+    print(r.text)
     file_code = json.loads(r.text)[0]["file_code"]
     url2 = "https://sendit.cloud/"+file_code
     
@@ -249,8 +250,8 @@ def upload_multi_file(mid_files,sf_code_num):
         print("id = ",mid_files[count])
         print("轉換後連結 = ",url)
         # 上傳到(雲端拋棄空間)
-        # url2 = upload_cloud(url.rsplit('/', 1)[-1],url)
-        url2 = upload_cloud_v2(url.rsplit('/', 1)[-1],url)
+        url2 = upload_cloud(url.rsplit('/', 1)[-1],url)
+        #url2 = upload_cloud_v2(url.rsplit('/', 1)[-1],url)
         print("上傳雲端連結 = ",url2)
         # (長網址)轉(短網址)
         url3 = long_to_short(url2)
